@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <div>
+        <input type="text" id="username" placeholder="Username or Email" />
+        <input type="password" id="password" placeholder="Password" />
+      </div>
+      <div>
+        <button onclick="performLogin()">Login</button>
+        <button onclick="logout()">Logout</button>
+      </div>
+    </nav>
+
+    <div>
+      <button onclick="displayCategory('Piscine Go 2021')">
+        Piscine Go 2021
+      </button>
+      <button onclick="displayCategory('Piscine JS')">Piscine JS</button>
+      <button onclick="displayCategory('Div 01')">Div 01</button>
+    </div>
+
+    <div id="userData"></div>
+    <div id="transactionData"></div>
+    <script src="./func/main.js"></script>
+  </body>
+</html>
