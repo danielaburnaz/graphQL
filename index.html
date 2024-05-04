@@ -8,26 +8,28 @@
   </head>
   <body>
     <nav>
-      <div>
+      <div id="login">
         <input type="text" id="username" placeholder="Username or Email" />
         <input type="password" id="password" placeholder="Password" />
-      </div>
-      <div>
-        <button onclick="performLogin()">Login</button>
-        <button onclick="logout()">Logout</button>
+        <button onclick="login()">Login</button>
       </div>
     </nav>
 
-    <div>
-      <button onclick="displayCategory('Piscine Go 2021')">
-        Piscine Go 2021
-      </button>
-      <button onclick="displayCategory('Piscine JS')">Piscine JS</button>
-      <button onclick="displayCategory('Div 01')">Div 01</button>
+    <div id="select">
+      <label for="category">Projects/Piscine exercises:</label>
+      <select name="category" id="">
+        <!-- in the API Piscine Go has 2021 in the name for some reason -->
+        <option onclick="displayCategory('Piscine Go 2021')">Piscine Go</option>
+        <option onclick="displayCategory('Piscine JS')">Piscine JS</option>
+        <option onclick="displayCategory('Div 01')">Div 01</option>
+      </select>
+      <button onclick="auditsDone()">Audits Done</button>
+      <button id="logout" onclick="logout()">Logout</button>
     </div>
 
     <div id="userData"></div>
     <div id="transactionData"></div>
-    <script src="./func/main.js"></script>
+    <script type="module" src="./func/main.js"></script>
+    <script type="module" src="./func/chart.js"></script>
   </body>
 </html>
