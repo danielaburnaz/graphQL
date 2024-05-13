@@ -1,5 +1,11 @@
+import { createGraph } from "./chart.js";
+
 let token; // token is updated upon login
 let allTransactions = []; // store all transactions after fetching
+window.login = login;
+window.logout = logout;
+window.displayCategory = displayCategory;
+window.auditsDone = auditsDone;
 
 async function fetchGraphQL(query, variables = {}) {
   const response = await fetch(
@@ -54,6 +60,8 @@ async function auth(credentials) {
 }
 
 async function login() {
+  window.login = login;
+
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
   const credentials = username + ":" + password;
@@ -169,14 +177,32 @@ function displayTransactions(title, transactions) {
   const transactionsHtml = transactions
     .map(
       (tx) => `
-        <li>${tx.amount} XP - ${tx.object.name} (${tx.object.type})</li>
+        <li>${tx.object.name} - ${tx.amount} XP</li>
       `
     )
     .join("");
 
+  const groupedTransactions = transactions.reduce((acc, tx) => {
+    const { name, type } = tx.object;
+    const key = `${name}`;
+    if (acc[key]) {
+      acc[key].value += tx.amount;
+    } else {
+      acc[key] = { label: key, value: tx.amount };
+    }
+    return acc;
+  }, {});
+
+  const graphData = Object.values(groupedTransactions);
+
+  const graphSvg = createGraph(graphData);
+
   document.getElementById("transactionData").innerHTML = `
-    <h2>${title}</h2>
-    <ul>${transactionsHtml}</ul>
+    <div>
+      <h2>${title}</h2>
+      <ul>${transactionsHtml}</ul>
+    </div>
+    ${graphSvg.outerHTML}
   `;
 }
 
