@@ -1,42 +1,38 @@
-function createGraph(data, svgId) {
-  const svgWidth = 700;
-  const svgHeight = window.innerHeight;
-  const barHeight = 30; // thicc bar
-  const barMargin = 10; // space between bars
+function createGraph(data) {
+  const svgWidth = 500;
+  const svgHeight = 200;
+  const margin = { top: 20, right: 20, bottom: 30, left: 50 };
+  const chartWidth = svgWidth - margin.left - margin.right;
+  const chartHeight = svgHeight - margin.top - margin.bottom;
+
   const maxValue = Math.max(...data.map((item) => item.value));
-  const scale = (svgWidth - 100) / maxValue;
+  const xScale = chartWidth / (data.length - 1);
+  const yScale = chartHeight / maxValue;
+
+  const points = data.map((item, index) => {
+    const x = index * xScale;
+    const y = chartHeight - item.value * yScale;
+    return `${x},${y}`;
+  });
+
+  const pathData = `M${points.join("L")}`;
 
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.setAttribute("width", svgWidth);
   svg.setAttribute("height", svgHeight);
-  svg.setAttribute("id", svgId);
+  svg.setAttribute("viewBox", `0 0 ${svgWidth} ${svgHeight}`);
 
-  // make bars
-  data.forEach((item, index) => {
-    const barWidth = item.value * scale;
-    const barX = 100;
-    const barY = index * (barHeight + barMargin) + 60;
+  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  path.setAttribute("d", pathData);
+  path.setAttribute("fill", "none");
+  path.setAttribute("stroke", "#F09D51");
+  path.setAttribute("stroke-width", "2");
+  path.setAttribute("transform", `translate(${margin.left}, ${margin.top})`);
 
-    const bar = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-    bar.setAttribute("x", barX);
-    bar.setAttribute("y", barY);
-    bar.setAttribute("width", barWidth);
-    bar.setAttribute("height", barHeight);
-    bar.setAttribute("fill", "steelblue");
-    svg.appendChild(bar);
-
-    const label = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "text"
-    );
-    label.setAttribute("x", 30);
-    label.setAttribute("y", barY + barHeight / 2 + 5);
-    label.setAttribute("text-anchor", "end");
-    label.textContent = item.label;
-    svg.appendChild(label);
-  });
+  svg.appendChild(path);
 
   return svg;
 }
 
 export { createGraph };
+

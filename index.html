@@ -3,25 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>GraphQL</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <nav>
-      <div id="login">
-        <input type="text" id="username" placeholder="Username or Email" />
-        <input type="password" id="password" placeholder="Password" />
-        <button onclick="login()">Login</button>
-      </div>
+    <nav id="login">
+      <input type="text" id="username" placeholder="Username or Email" />
+      <input type="password" id="password" placeholder="Password" />
+      <button onclick="login()">Login</button>
     </nav>
 
     <div id="select">
-      <label for="category">Projects/Piscine exercises:</label>
-      <select name="category" id="">
+      <label for="category">GraphQl</label>
+      <select onclick="displayCategory(this.value); this.selectedindex = -1"" name="category" id="">
         <!-- in the API Piscine Go has 2021 in the name for some reason -->
-        <option onclick="displayCategory('Piscine Go 2021')">Piscine Go</option>
-        <option onclick="displayCategory('Piscine JS')">Piscine JS</option>
-        <option onclick="displayCategory('Div 01')">Div 01</option>
+        <option value='Piscine Go 2021'>Piscine Go</option>
+        <option value='Piscine JS'>Piscine JS</option>
+        <option value='Div 01'>Div 01</option>
       </select>
       <button onclick="auditsDone()">Audits Done</button>
       <button id="logout" onclick="logout()">Logout</button>

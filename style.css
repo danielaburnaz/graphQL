@@ -1,18 +1,31 @@
+:root {
+  --background-color: #4D5061;
+  --nav-color: #30323D;
+  --text-color: #CDD1C4;
+
+}
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f5f5f5;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 nav {
-  background-color: #333;
+  background-color: var(--nav-color);
   padding: 10px;
+  height: 50px;
+}
+
+svg {
+  margin-top: 25px;
 }
 
 #login {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 #login input,
@@ -25,10 +38,46 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background-color: #fff;
+  height: 50px;
+
+  color: var(--text-color);
+  background-color: var(--nav-color);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0);
+}
+
+#select label {
+  font-size: 24px;
+  margin-left: 5vw;
+}
+
+#logout {
+  margin-right: 5vw;
+}
+
+select, button {
+  color: var(--text-color);
+  padding: 10px 20px;
+  border: 2px solid var(--text-color);
+  border-radius: 5px;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+select:hover, button:hover {
+  border-color: var(--text-color);
+  color: var(--background-color);
+}
+
+select:focus, button:focus {
+  border-color: var(--text-color);
 }
 
 #transactionData {
   display: flex;
+}
+
+#transactionData, #userData {
+  margin-left: 5vw;
+  margin-right: 5vw;
 }
