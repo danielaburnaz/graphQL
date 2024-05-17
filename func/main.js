@@ -1,4 +1,5 @@
 import { createGraph } from "./chart.js";
+import { pieGraph } from "./piechart.js";
 
 let token; // token is updated upon login
 let allTransactions = []; // store all transactions after fetching
@@ -174,17 +175,11 @@ async function auditsDone() {
 }
 
 function displayTransactions(title, transactions) {
-  const transactionsHtml = transactions
-    .map(
-      (tx) => `
-        <li>${tx.object.name} - ${tx.amount} XP</li>
-      `
-    )
-    .join("");
+  const colors = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40"];
 
   const groupedTransactions = transactions.reduce((acc, tx) => {
     const { name, type } = tx.object;
-    const key = `${name}`;
+    const key = `${name} - ${tx.amount}`;
     if (acc[key]) {
       acc[key].value += tx.amount;
     } else {
@@ -195,14 +190,26 @@ function displayTransactions(title, transactions) {
 
   const graphData = Object.values(groupedTransactions);
 
+  const transactionsHtml = graphData
+    .map(
+      (tx, index) => `
+        <li style="color: ${colors[index % colors.length]}">${tx.label} - ${tx.value} XP</li>
+      `
+    )
+    .join("");
+
   const graphSvg = createGraph(graphData);
+  const pieSvg = pieGraph(graphData);
 
   document.getElementById("transactionData").innerHTML = `
     <div>
       <h2>${title}</h2>
-      <ul>${transactionsHtml}</ul>
+      <div style="display: flex;">
+      <ul style="margin-left: 20px; padding: 0; list-style-type: none;">${transactionsHtml}</ul>
+      ${graphSvg.outerHTML}
+      ${pieSvg.outerHTML}
+      </div>
     </div>
-    ${graphSvg.outerHTML}
   `;
 }
 

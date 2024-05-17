@@ -7,16 +7,14 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <nav>
-      <div id="login">
-        <input type="text" id="username" placeholder="Username or Email" />
-        <input type="password" id="password" placeholder="Password" />
-        <button onclick="login()">Login</button>
-      </div>
+    <nav id="login">
+      <input type="text" id="username" placeholder="Username or Email" />
+      <input type="password" id="password" placeholder="Password" />
+      <button onclick="login()">Login</button>
     </nav>
 
     <div id="select">
-      <label for="category">Projects/Piscine exercises:</label>
+      <label for="category">GraphQl</label>
       <select name="category" id="">
         <!-- in the API Piscine Go has 2021 in the name for some reason -->
         <option onclick="displayCategory('Piscine Go 2021')">Piscine Go</option>
